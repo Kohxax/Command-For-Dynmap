@@ -1,0 +1,7 @@
+name: Command-For-Dynmap
+version: '1.0-Alpha'
+main: CommandForDynmap.CommandForDynmap
+api-version: '1.21'
+commands:
+  map:
+    description: send /map for DynmapURL
