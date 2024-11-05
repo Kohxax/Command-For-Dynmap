@@ -7,12 +7,20 @@ import org.bukkit.entity.Player;
 
 public final class CommandForDynmap extends JavaPlugin {
 
+    private String dynmapUrl;
+
     @Override
     public void onEnable() {
         // Plugin startup logic
         getLogger().info("CommandForDynmap is now enable!");
         //コマンドをplugin.ymlの設定と合致させる
         this.getCommand("map").setExecutor(this);
+
+        //config.ymlの生成
+        saveDefaultConfig();
+
+        //config.ymlからURLの読み込みと、dynmapUrlへの格納
+        dynmapUrl = getConfig().getString("URL");
     }
 
     @Override
@@ -25,7 +33,6 @@ public final class CommandForDynmap extends JavaPlugin {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         //送信されたコマンドがmapと適合するかの検証
         if (command.getName().equalsIgnoreCase("map")) {
-            String dynmapUrl = "https://map.bokukoha.dev";
             //送信者がプレイヤーかどうかの判定
             if (sender instanceof Player) {
                 //プレイヤーの場合、CommandSenderのsenderをPlayerにする
