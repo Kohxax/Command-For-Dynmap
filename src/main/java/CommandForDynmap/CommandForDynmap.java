@@ -31,20 +31,26 @@ public final class CommandForDynmap extends JavaPlugin {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        //送信されたコマンドがmapと適合するかの検証
-        if (command.getName().equalsIgnoreCase("map")) {
-            //送信者がプレイヤーかどうかの判定
-            if (sender instanceof Player) {
-                //プレイヤーの場合、CommandSenderのsenderをPlayerにする
-                Player player = (Player) sender;
-                player.sendMessage("DynmapURL : "  + dynmapUrl);
+        //パーミッション
+        if (sender.hasPermission("CommandForDynmap.commands.map")) {
+            //送信されたコマンドがmapと適合するかの検証
+            if (command.getName().equalsIgnoreCase("map")) {
+                //送信者がプレイヤーかどうかの判定
+                if (sender instanceof Player) {
+                    //プレイヤーの場合、CommandSenderのsenderをPlayerにする
+                    Player player = (Player) sender;
+                    player.sendMessage("§aDynmapURL" + "§f : "  + dynmapUrl);
+                } else {
+                    //コンソールの場合、そのままログ出力
+                    sender.sendMessage("DynmapURL : " + dynmapUrl);
+                }
+                return true;
             } else {
-                //コンソールの場合、そのままログ出力
-                sender.sendMessage("DynmapURL : " + dynmapUrl);
+                //送信されたコマンドがmapと適合しない場合
+                return false;
             }
-            return true;
         } else {
-            //送信されたコマンドがmapと適合しない場合
+            sender.sendMessage("§4 You do not have permission");
             return false;
         }
     }

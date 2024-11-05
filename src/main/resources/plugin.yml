@@ -1,7 +1,21 @@
 name: Command-For-Dynmap
-version: '1.0-Alpha'
+version: '1.0-release'
 main: CommandForDynmap.CommandForDynmap
 api-version: '1.21'
 commands:
   map:
     description: send /map for DynmapURL
+permission: CommandForDynmap.commands.map
+permissions:
+  CommandForDynmap.*:
+    children:
+      CommandForDynmap : true
+    description: all commands.
+    default : op
+  CommandForDynmap.commands:
+    default : op
+    children:
+      CommandForDynmap.commands.map: true
+  CommandForDynmap.commands.map:
+    description: only map command.
+    default : false
